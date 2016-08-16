@@ -5,7 +5,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
-using Windows.Foundation.Collections;
 using Windows.Storage;
 using Common.Models;
 using Newtonsoft.Json;

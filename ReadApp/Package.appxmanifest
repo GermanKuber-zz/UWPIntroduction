@@ -21,6 +21,9 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
+        <uap:Extension Category="windows.appService" EntryPoint="VoiceCommandService.VoiceCommandService">
+          <uap:AppService Name="VoiceCommandService" />
+        </uap:Extension>
         <Extension Category="windows.backgroundTasks" EntryPoint="BackgroundServices.ReadAppBackgroundTask">
           <BackgroundTasks>
             <Task Type="timer" />

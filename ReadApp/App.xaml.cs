@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.VoiceCommands;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -34,11 +36,11 @@ namespace ReadApp
         {
             ReadAppBackgroundTask.Register();
             //install Voice Commands
-            var vcdFile = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(
+            var vcdFile = await StorageFile.GetFileFromApplicationUriAsync(
                  new Uri("ms-appx:///VoiceCommandDefinition.xml"));
 
             await
-                Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager
+                VoiceCommandDefinitionManager
                     .InstallCommandDefinitionsFromStorageFileAsync(vcdFile);
 #if DEBUG
             if (Debugger.IsAttached)

@@ -30,9 +30,16 @@ namespace ReadApp
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             ReadAppBackgroundTask.Register();
+            //install Voice Commands
+            var vcdFile = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(
+                 new Uri("ms-appx:///VoiceCommandDefinition.xml"));
+
+            await
+                Windows.ApplicationModel.VoiceCommands.VoiceCommandDefinitionManager
+                    .InstallCommandDefinitionsFromStorageFileAsync(vcdFile);
 #if DEBUG
             if (Debugger.IsAttached)
             {
@@ -72,7 +79,23 @@ namespace ReadApp
                 Window.Current.Activate();
             }
         }
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            base.OnActivated(args);
+            if (args.Kind == ActivationKind.VoiceCommand)
+            {
+                //The app was invoked via a voice command.
+            }
 
+            if (Window.Current.Content == null)
+            {
+                var rootFrame = new Frame();
+                rootFrame.NavigationFailed += OnNavigationFailed;
+                Window.Current.Content = rootFrame;
+                rootFrame.Navigate(typeof(MainPage));
+                Window.Current.Activate();
+            }
+        }
         /// <summary>
         /// Invoked when Navigation to a certain page fails
         /// </summary>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.2">
+  <CommandSet xml:lang="es-es">
+    <AppName>Lector De Eventos</AppName>
+    <Example> Hola Lector De Eventos </Example>
+    <Command Name="ReadEventosCommand">
+      <Example> Hola {builtin:AppName} </Example>
+      <ListenFor RequireAppName="ExplicitlySpecified">
+        Abrir {builtin:AppName}
+      </ListenFor>
+      <Feedback>De inmediato señor</Feedback>
+      <Navigate Target="MainPage.xaml"/>
+    </Command>
+  </CommandSet>
+</VoiceCommands>

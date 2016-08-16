@@ -97,6 +97,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ConfigurationsViewModel.cs" />
     <Compile Include="ContactAdmin.cs" />
     <Compile Include="ContactWrapper.cs" />
     <Compile Include="EmailAdmin.cs" />
@@ -105,6 +106,7 @@
     </Compile>
     <Compile Include="MainPageDataViewModel.cs" />
     <Compile Include="Notice.cs" />
+    <Compile Include="ObservableObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadModel.cs" />
     <Compile Include="ReadResitory.cs" />

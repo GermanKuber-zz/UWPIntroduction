@@ -5,7 +5,7 @@
     xmlns:local="using:ReadApp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" RequestedTheme="Light">
+    mc:Ignorable="d" RequestedTheme="{Binding Configurations.Theme, Mode=TwoWay}">
 
     <Page.Resources>
         <DataTemplate x:Key="RememberModelTemplate">
@@ -25,21 +25,22 @@
                         </Ellipse>
                     </StackPanel>
                     <StackPanel>
-                        <TextBlock x:Name="Title" Text="{Binding Title}" VerticalAlignment="Top" Margin="5,25,0,0" FontSize="21" FontWeight="Bold" Foreground="#FF013C57"/>
+                        <TextBlock x:Name="Title" Text="{Binding Title}" VerticalAlignment="Top" Margin="5,25,0,0" FontSize="21" FontWeight="Bold"/>
                         <TextBlock x:Name="Date" Text="{Binding Date}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,5,0,0" FontSize="12" Foreground="#FFF10E0E"/>
                         <Grid x:Name="_10" BorderThickness="0" Margin="0" Padding="0,8,0,0" MinWidth="450" Width="650" MaxWidth="650">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition />
+                                <ColumnDefinition Width="17*" />
+                                <ColumnDefinition Width="113*"/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="1" x:Name="Text" TextWrapping="Wrap" Text="{Binding Text}" HorizontalAlignment="Left" MinWidth="2"  Margin="0,10,0,25"/>
+                            <TextBlock Grid.Column="1" x:Name="Text" TextWrapping="Wrap" Text="{Binding Text}" HorizontalAlignment="Left" MinWidth="2"  Margin="0,18,0,0" Grid.ColumnSpan="2" Height="59.854" VerticalAlignment="Top"/>
                         </Grid>
                         <Grid>
-                            <AppBarButton Click="Button_OnClick" x:Name="btnEmail" Content="Button" Background="#33164CBF" Icon="Mail" Height="50" HorizontalAlignment="Right" Margin="0,0,102,0" Visibility="{Binding EmailVisibility, Mode=OneWay}"/>
+                            <AppBarButton Click="Button_OnClick" x:Name="btnEmail" Content="Button" Icon="Mail" Height="50" HorizontalAlignment="Right" Margin="0,0,102,0" Visibility="{Binding EmailVisibility, Mode=OneWay}"/>
                             <AppBarButton  
                                 Command="{Binding DataContext.AddNoticeToCommand, ElementName=GridContext}"
                                 CommandParameter="{Binding}"   
-                                x:Name="btnCalendar" Content="Button" Background="#33164CBF" Icon="Calendar" Height="50" HorizontalAlignment="Right" Visibility="{Binding EmailVisibility, Mode=OneWay}"/>
+                                x:Name="btnCalendar" Content="Button" Icon="Calendar" Height="50" HorizontalAlignment="Right" Visibility="{Binding EmailVisibility, Mode=OneWay}"/>
 
                         </Grid>
                     </StackPanel>
@@ -53,11 +54,16 @@
     </Page.DataContext>
     <Page.BottomAppBar>
         <CommandBar>
+            <CommandBar.SecondaryCommands>
+                <AppBarToggleButton x:Name="appBarToggleButton" Label="Notificaciones" IsChecked="{Binding Configurations.NotificationsEnabled, Mode=TwoWay}" DataContext="{Binding}"/>
+                <AppBarToggleButton x:Name="appBarToggleButton1" Label="Live" IsChecked="{Binding Configurations.LiveTileEnabled, Mode=TwoWay}" DataContext="{Binding}"/>
+                <AppBarToggleButton x:Name="appBarToggleButton2" Label="Dark Theme" IsChecked="{Binding Configurations.DarkTheme, Mode=TwoWay}" DataContext="{Binding}"/>
+
+            </CommandBar.SecondaryCommands>
             <CommandBar.Content>
                 <Grid/>
             </CommandBar.Content>
-            <AppBarButton x:Name="appBarButton" HorizontalAlignment="Stretch" Icon="Accept" Label="appbarbutton" VerticalAlignment="Stretch" d:LayoutOverrides="Height" Command="{Binding AddNoticeToCommand}"/>
-        </CommandBar>
+            </CommandBar>
     </Page.BottomAppBar>
 
 
@@ -86,12 +92,11 @@
             </Grid.RowDefinitions>
             <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" 
              Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Margin="5,5,0,0" FontSize="20" Foreground="#FF0F5AC5"/>
-            <Ellipse Grid.Column="1" x:Name="Imangen" Margin="0,0,10,-0.667" Stroke="Black" d:LayoutOverrides="TopPosition, BottomPosition" HorizontalAlignment="Right" Width="45" Height="45" MaxWidth="45" MaxHeight="45">
+            <Ellipse Grid.Column="1" x:Name="Imangen" Margin="0,5,11,0" Stroke="Black" d:LayoutOverrides="TopPosition, BottomPosition" HorizontalAlignment="Right" Width="45" Height="45" MaxWidth="45" MaxHeight="45">
                 <Ellipse.Fill>
                     <ImageBrush Stretch="Fill" ImageSource="{Binding SelectedRead.Picture}"/>
                 </Ellipse.Fill>
             </Ellipse>
-            <Ellipse Fill="#FFF4F4F5" Grid.Row="1" Stroke="Black" Grid.ColumnSpan="2" Margin="0,-0.333,0,0" d:LayoutOverrides="TopPosition, BottomPosition"/>
             <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" Margin="0,-0.333,0,0" d:LayoutOverrides="TopPosition, BottomPosition">
                 <ItemsControl ItemsSource="{Binding SelectedRead.Notices}" ItemTemplate="{StaticResource ReadNoticeTemplate}"/>
             </ScrollViewer>

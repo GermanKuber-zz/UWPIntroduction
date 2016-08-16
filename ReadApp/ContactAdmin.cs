@@ -12,8 +12,7 @@ namespace ReadApp
         {
             var contactStore =
                     await ContactManager.RequestStoreAsync(ContactStoreAccessType.AllContactsReadOnly);
-                var lista = await contactStore.FindContactListsAsync();
-
+                
             return (from contact in await contactStore.FindContactsAsync() select new ContactWrapper(contact)).ToList();
         }
     }

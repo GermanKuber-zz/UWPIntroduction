@@ -29,11 +29,8 @@ namespace ReadApp
                     new PropertyChangedEventArgs(nameof(Title)));
             }
         }
-
         public ObservableCollection<ContactWrapper> Contacts = new ObservableCollection<ContactWrapper>();
-
         public event PropertyChangedEventHandler PropertyChanged;
-
         public ReadModel SelectedRead
         {
             get { return _selectedRead; }
@@ -65,11 +62,26 @@ namespace ReadApp
                 FilterText();
             }
         }
+        private ConfigurationsViewModel _configurations;
+        public ConfigurationsViewModel Configurations
+        {
+            get { return _configurations; }
+            set
+            {
+                if (value == _configurations)
+                    return;
+
+                _configurations = value;
+                PropertyChanged?.Invoke(this,
+                    new PropertyChangedEventArgs(nameof(Filter)));
+            }
+        }
+
         #endregion
 
 
         #region Commands
-        
+
         public ICommand AddNoticeToCommand
         {
             get
@@ -116,6 +128,7 @@ namespace ReadApp
                 LoadData();
 
             this.Title = Welcome;
+            this.Configurations = new ConfigurationsViewModel();
         }
 
         private void GenerateDummyData()
@@ -214,6 +227,9 @@ namespace ReadApp
 
         public async void AddNoticeToCalendarAsync(NoticeModel notice)
         {
+            if (notice == null)
+                throw new ArgumentNullException(nameof(notice));
+
             var appointment = new Appointment();
             appointment.Subject = "Evento : " + notice.Title;
             appointment.AllDay = true;

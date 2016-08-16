@@ -37,8 +37,8 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="1" x:Name="Text" TextWrapping="Wrap" Text="{Binding Text}" HorizontalAlignment="Left" MinWidth="2"  Margin="0,18,0,0" Grid.ColumnSpan="2" Height="59.854" VerticalAlignment="Top"/>
                         </Grid>
-                        <Grid>
-                            <AppBarButton Click="Button_OnClick" x:Name="btnEmail" Content="Button" Icon="Mail" Height="50" HorizontalAlignment="Right" Margin="0,0,102,0" Visibility="{Binding EmailVisibility, Mode=OneWay}"/>
+                        <Grid Height="50">
+                            <AppBarButton Click="Button_OnClick" x:Name="btnEmail" Content="Button" Icon="Mail" Height="54" HorizontalAlignment="Right" Margin="0,0,102,-4" Label="Email" Style="{StaticResource AppBarButtonStyle1}" FontSize="19" Visibility="{Binding EmailVisibility, Mode=OneWay}"/>
                             <AppBarButton  
                                 Command="{Binding DataContext.AddNoticeToCommand, ElementName=GridContext}"
                                 CommandParameter="{Binding}"   
@@ -67,7 +67,7 @@
             <CommandBar.Content>
                 <Grid/>
             </CommandBar.Content>
-            </CommandBar>
+        </CommandBar>
     </Page.BottomAppBar>
 
 
@@ -102,7 +102,7 @@
                 </Ellipse.Fill>
             </Ellipse>
             <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" Margin="0,-0.333,0,0" d:LayoutOverrides="TopPosition, BottomPosition">
-                <ItemsControl ItemsSource="{Binding SelectedRead.Notices}" ItemTemplate="{StaticResource ReadNoticeTemplate}"/>
+                <ItemsControl ItemsSource="{Binding SelectedRead.Notices}" ItemTemplate="{StaticResource ReadNoticeTemplate}" Margin="0,0,1,0"/>
             </ScrollViewer>
         </Grid>
 

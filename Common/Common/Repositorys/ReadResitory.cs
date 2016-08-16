@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
+using Windows.Foundation.Collections;
 using Windows.Storage;
 using Common.Models;
 using Newtonsoft.Json;
@@ -28,9 +30,22 @@ namespace Common.Repositorys
             var serializer = new DataContractJsonSerializer(typeof(List<ReadModel>));
             _readCache = (List<ReadModel>)serializer.ReadObject(stream);
 
-           return _readCache;
-            
-           // return await ReadFromFile();
+            return _readCache;
+            // return await ReadFromFile();
+        }
+        public static async Task<List<NoticeModel>> GetNoticesInDay()
+        {
+
+            //Verfico el cache
+            if (_readCache == null)
+                _readCache = await GetReadsAsync();
+
+            var now = DateTime.Now;
+       
+            var selectedChildren = _readCache.SelectMany(x => x.Notices).Where(s=> s.DateParse.Day == now.Day).ToList();
+
+            return selectedChildren;
+            // return await ReadFromFile();
         }
 
         public static async Task<List<ReadModel>> ReadFromFile()

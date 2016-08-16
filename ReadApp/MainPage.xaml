@@ -58,6 +58,8 @@
                 <AppBarToggleButton x:Name="appBarToggleButton" Label="Notificaciones" IsChecked="{Binding Configurations.NotificationsEnabled, Mode=TwoWay}" DataContext="{Binding}"/>
                 <AppBarToggleButton x:Name="appBarToggleButton1" Label="Live" IsChecked="{Binding Configurations.LiveTileEnabled, Mode=TwoWay}" DataContext="{Binding}"/>
                 <AppBarToggleButton x:Name="appBarToggleButton2" Label="Dark Theme" IsChecked="{Binding Configurations.DarkTheme, Mode=TwoWay}" DataContext="{Binding}"/>
+                <AppBarSeparator/>
+                <AppBarButton x:Name="appBarButton" Label="About" Click="appBarButton_Click"/>
 
             </CommandBar.SecondaryCommands>
             <CommandBar.Content>

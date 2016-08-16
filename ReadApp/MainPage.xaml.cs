@@ -17,5 +17,10 @@ namespace ReadApp
             if (notice != null)
                 await((MainPageDataViewModel)this.DataContext).SendEmailAsync(notice);
         }
+
+        private void appBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(About));
+        }
     }
 }

@@ -26,5 +26,11 @@ namespace Loyout
         {
             this.InitializeComponent();
         }
+
+        private async void button_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new Windows.UI.Popups.MessageDialog("Prueba");
+            await dialog.ShowAsync();
+        }
     }
 }

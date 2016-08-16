@@ -11,7 +11,6 @@
       <Feedback>De inmediato señor</Feedback>
       <Navigate Target="MainPage.xaml"/>
     </Command>
-
     <Command Name="ReadEventsByCortanaCommand">
       <Example>Lector De Eventos eventos de hoy</Example>
       <ListenFor RequireAppName="ExplicitlySpecified">{builtin:AppName} eventos de hoy</ListenFor>

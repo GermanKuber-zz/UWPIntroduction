@@ -25,6 +25,7 @@ namespace ReadApp.Views
         private void appBarButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(About));
+            
         }
         private MainPageDataViewModel Logic => DataContext as MainPageDataViewModel;
 

@@ -11,6 +11,7 @@ using Common.Admins;
 using Common.ForViews;
 using Common.Models;
 using Common.Repositorys;
+using Windows.UI.Xaml;
 
 namespace Common.ViewModels
 {
@@ -21,7 +22,19 @@ namespace Common.ViewModels
 
 
         #region Public Properties
+        public Visibility VisibleMenu
+        {
+            get { return _visibleMenu; }
+            set
+            {
+                if (value == _visibleMenu)
+                    return;
 
+                _visibleMenu = value;
+                PropertyChanged?.Invoke(this,
+                    new PropertyChangedEventArgs(nameof(Filter)));
+            }
+        }
         public ObservableCollection<ReadModel> ReadModels { get; set; }
         public string Title
         {
@@ -50,6 +63,18 @@ namespace Common.ViewModels
                 PropertyChanged?.Invoke(this,
                    new PropertyChangedEventArgs(nameof(SelectedRead)));
                 UpdateContacts();
+                if (VisibleMenu == Visibility.Visible)
+                    this.OpenMenu = false;
+            }
+        }
+        public bool OpenMenu
+        {
+            get { return _openMenu; }
+            set
+            {
+                _openMenu = value;
+                PropertyChanged?.Invoke(this,
+                   new PropertyChangedEventArgs(nameof(OpenMenu)));
             }
         }
         public string Filter
@@ -114,6 +139,21 @@ namespace Common.ViewModels
             }
             set { _addNoticeToCommand = value; }
         }
+        public ICommand SwitchMenuCommand
+        {
+            get
+            {
+                if (_switchMenuCommand == null)
+                {
+                    _switchMenuCommand = new CommandHandler(((obj) =>
+                    {
+                        this.OpenMenu = !this.OpenMenu;
+                    }));
+                }
+                return _switchMenuCommand;
+            }
+            set { _switchMenuCommand = value; }
+        }
 
         #endregion
 
@@ -132,6 +172,10 @@ namespace Common.ViewModels
         private ICommand _addNoticeToCommand;
 
         private LoadingStates _loadingState = LoadingStates.Loading;
+        private bool _openMenu;
+        private ICommand _switchMenuCommand;
+        private Visibility _visibleMenu;
+
         #endregion
 
 

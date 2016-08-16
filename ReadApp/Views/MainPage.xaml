@@ -9,7 +9,7 @@
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Behavior="using:ReadApp.Behavior"
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     x:Class="ReadApp.Views.MainPage"
-    mc:Ignorable="d" RequestedTheme="{Binding Configurations.Theme, Mode=TwoWay}" Background="#FF434343" NavigationCacheMode="Enabled">
+    mc:Ignorable="d" RequestedTheme="{Binding Configurations.Theme, Mode=TwoWay}" Background="#FF434343">
 
     <Page.Resources>
         <DataTemplate x:Key="RememberModelTemplate">
@@ -152,7 +152,7 @@
             <ColumnDefinition Width="320"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid x:Name="grid" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" Grid.ColumnSpan="2" Background="#FF2E2E2E" Opacity="0.9" Canvas.ZIndex="1">
+        <Grid x:Name="grid" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" Grid.ColumnSpan="2" Background="#FF2E2E2E" Opacity="0.9" Canvas.ZIndex="1" d:IsHidden="True">
             <StackPanel x:Name="stackPanel" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center">
                 <TextBlock x:Name="textBlock1" Style="{StaticResource HeaderTextBlockStyle}" TextWrapping="Wrap" Text="Cargando ...">
                     <TextBlock.Projection>
@@ -191,7 +191,13 @@
                 </Ellipse.Fill>
             </Ellipse>
             <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" Margin="0,-0.333,0,0" d:LayoutOverrides="TopPosition, BottomPosition">
-                <ItemsControl ItemTemplate="{StaticResource ReadNoticeTemplate}" ItemsSource="{Binding SelectedRead.Notices}"/>
+                <ItemsControl ItemTemplate="{StaticResource ReadNoticeTemplate}" ItemsSource="{Binding SelectedRead.Notices}">
+                    <ItemsControl.ItemContainerTransitions>
+                        <TransitionCollection>
+                            <EntranceThemeTransition IsStaggeringEnabled="True"/>
+                        </TransitionCollection>
+                    </ItemsControl.ItemContainerTransitions>
+                </ItemsControl>
             </ScrollViewer>
         </Grid>
 

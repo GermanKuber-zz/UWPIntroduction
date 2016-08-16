@@ -10,5 +10,6 @@ namespace ReadApp
         public string Title { get; set; }
         public int Id { get; set; }
         public string Date { get; set; }
+        public string Image { get; set; }
     }
 }

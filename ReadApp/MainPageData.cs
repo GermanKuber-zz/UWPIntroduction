@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -8,37 +9,11 @@ namespace ReadApp
 {
     public class MainPageData : INotifyPropertyChanged
     {
-        private const string Welcome = "Bienvenido ReadApp";
-        private string _title;
 
-        private List<ReadModel> _readModels =
-            new List<ReadModel>();
+
+        #region Public Properties
 
         public ObservableCollection<ReadModel> ReadModels { get; set; }
-
-        public MainPageData()
-        {
-            ReadModels = new ObservableCollection<ReadModel>();
-            if (DesignMode.DesignModeEnabled)
-            {
-                //Solo se carga en el modo diseño
-                for (int i = 0; i < 150; i++)
-                {
-                    _readModels.Add(new ReadModel { Email = $"mail@prueba{i}.com", Picture = "", Name = $"Nombre : {i}", Last = $"Apellido : {i}" });
-
-                }
-                FilterText();
-            }
-            else {
-                LoadData();
-            }
-            this.Title = Welcome;
-        }
-        public async void LoadData()
-        {
-            _readModels = await ReadResitory.GetReadsAsync();
-            FilterText();
-        }
         public string Title
         {
             get { return _title; }
@@ -52,7 +27,7 @@ namespace ReadApp
             }
         }
 
-        private ReadModel _selectedRead;
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -66,13 +41,11 @@ namespace ReadApp
                 if (value == null)
                     Title = Welcome;
                 else
-                    Title = $"{Welcome} : {_selectedRead.Name}";
+                    Title = $"Usuario Seleccionado : {_selectedRead.Name}";
                 PropertyChanged?.Invoke(this,
                    new PropertyChangedEventArgs(nameof(SelectedRead)));
             }
         }
-
-        private string _filter;
         public string Filter
         {
             get { return _filter; }
@@ -87,6 +60,157 @@ namespace ReadApp
 
                 FilterText();
             }
+        }
+        #endregion
+
+
+        #region Commands
+
+
+
+        #endregion
+
+
+        #region Private Properties
+
+        private const string Welcome = "Bienvenido ReadApp";
+        private string _title;
+
+        private List<ReadModel> _readModels = new List<ReadModel>();
+
+        private ReadModel _selectedRead;
+
+        private string _filter;
+        #endregion
+
+
+        #region Constructor
+
+        public MainPageData()
+        {
+            ReadModels = new ObservableCollection<ReadModel>();
+            if (DesignMode.DesignModeEnabled)
+            {
+
+                GenerateDummyData();
+            }
+            else
+            {
+                LoadData();
+            }
+            this.Title = Welcome;
+        }
+
+        private void GenerateDummyData()
+        {
+//Solo se carga en el modo diseño
+            for (int i = 0; i < 150; i++)
+            {
+                var readModel = new ReadModel
+                {
+                    Email = $"mail@prueba{i}.com",
+                    Picture = "http://placehold.it/400x400",
+                    Name = $"Nombre : {i}",
+                    Last = $"Apellido : {i}",
+                    Notices = new List<Notice>
+                    {
+                        new Notice
+                        {
+                            Date = RandomDay().ToString(),
+                            Id = i,
+                            Tags = new List<string>
+                            {
+                                $"Tag - {i}",
+                                $"Tag - {i - 5}"
+                            },
+                            Text =
+                                "Ex cupidatat culpa consequat enim laborum in deserunt anim occaecat. Deserunt eiusmod quis occaecat id deserunt est voluptate do fugiat adipisicing. Ut laboris in magna adipisicing amet non nulla in. Duis irure qui mollit ea et amet esse tempor dolor reprehenderit do.",
+                            Title = $"Titulo numero  : {i}",
+                            Image = "http://placehold.it/400x400"
+                        },
+                        new Notice
+                        {
+                            Date = RandomDay().ToString(),
+                            Id = i,
+                            Tags = new List<string>
+                            {
+                                $"Tag - {i}",
+                                $"Tag - {i - 5}"
+                            },
+                            Text =
+                                "Ex cupidatat culpa consequat enim laborum in deserunt anim occaecat. Deserunt eiusmod quis occaecat id deserunt est voluptate do fugiat adipisicing. Ut laboris in magna adipisicing amet non nulla in. Duis irure qui mollit ea et amet esse tempor dolor reprehenderit do.",
+                            Title = $"Titulo numero  : {i}", 
+                            Image = "http://placehold.it/400x400"
+                        },
+                        new Notice
+                        {
+                            Date = RandomDay().ToString(),
+                            Id = i,
+                            Tags = new List<string>
+                            {
+                                $"Tag - {i}",
+                                $"Tag - {i - 5}"
+                            },
+                            Text =
+                                "Ex cupidatat culpa consequat enim laborum in deserunt anim occaecat. Deserunt eiusmod quis occaecat id deserunt est voluptate do fugiat adipisicing. Ut laboris in magna adipisicing amet non nulla in. Duis irure qui mollit ea et amet esse tempor dolor reprehenderit do.",
+                            Title = $"Titulo numero  : {i}",
+                            Image = "http://placehold.it/400x400"
+                        },
+                        new Notice
+                        {
+                            Date = RandomDay().ToString(),
+                            Id = i,
+                            Tags = new List<string>
+                            {
+                                $"Tag - {i}",
+                                $"Tag - {i - 5}"
+                            },
+                            Text =
+                                "Ex cupidatat culpa consequat enim laborum in deserunt anim occaecat. Deserunt eiusmod quis occaecat id deserunt est voluptate do fugiat adipisicing. Ut laboris in magna adipisicing amet non nulla in. Duis irure qui mollit ea et amet esse tempor dolor reprehenderit do.",
+                            Title = $"Titulo numero  : {i}",
+                            Image = "http://placehold.it/400x400"
+                        }
+                    }
+                };
+
+              
+                ReadModels.Add(readModel);
+            }
+            if (ReadModels != null && ReadModels.Count > 0)
+                this.SelectedRead = ReadModels.First();
+            //FilterText();
+        }
+
+        #endregion
+
+
+        #region Public Methods
+
+
+
+        #endregion
+
+
+        #region Private Methods
+
+        private void GenerateDataDummy()
+        {
+
+        }
+
+        private DateTime RandomDay()
+        {
+
+            Random gen = new Random();
+            DateTime start = new DateTime(1995, 1, 1);
+            int range = (DateTime.Today - start).Days;
+            return start.AddDays(gen.Next(range));
+        }
+        private async void LoadData()
+        {
+            _readModels = await ReadResitory.GetReadsAsync();
+            FilterText();
+
         }
 
         private void FilterText()
@@ -115,9 +239,16 @@ namespace ReadApp
                     ReadModels.Insert(i, resultItem);
             }
         }
+        #endregion
+
+
+        #region Events Overrides
+
+
+
+        #endregion
+
 
 
     }
-
-
 }

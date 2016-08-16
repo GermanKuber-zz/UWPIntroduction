@@ -10,9 +10,8 @@
     <Page.Resources>
         <DataTemplate x:Key="RememberModelTemplate">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding Name, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <TextBlock Text="{Binding Day, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40"/>
-                <ItemsControl ItemsSource="{Binding Names}"/>
+                <TextBlock Text="{Binding Name , Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <TextBlock Text="{Binding Last , Mode=OneWay}" Margin="15,0,0,0"/>
             </StackPanel>
         </DataTemplate>
     </Page.Resources>

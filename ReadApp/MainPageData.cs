@@ -2,12 +2,13 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using Windows.ApplicationModel;
 
 namespace ReadApp
 {
     public class MainPageData : INotifyPropertyChanged
     {
-        private const string WELCOME = "Bienvenido ReadApp";
+        private const string Welcome = "Bienvenido ReadApp";
         private string _title;
 
         private List<ReadModel> _readModels =
@@ -18,16 +19,26 @@ namespace ReadApp
         public MainPageData()
         {
             ReadModels = new ObservableCollection<ReadModel>();
-
-            for (int i = 0; i < 150; i++)
+            if (DesignMode.DesignModeEnabled)
             {
-                _readModels.Add(new ReadModel { Email = $"mail@prueba{i}.com", Img = "", Name = $"Nombre Numero : {i}" });
+                //Solo se carga en el modo diseño
+                for (int i = 0; i < 150; i++)
+                {
+                    _readModels.Add(new ReadModel { Email = $"mail@prueba{i}.com", Picture = "", Name = $"Nombre : {i}", Last = $"Apellido : {i}" });
 
+                }
+                FilterText();
             }
-            FilterText();
-            this.Title = WELCOME;
+            else {
+                LoadData();
+            }
+            this.Title = Welcome;
         }
-
+        public async void LoadData()
+        {
+            _readModels = await ReadResitory.GetReadsAsync();
+            FilterText();
+        }
         public string Title
         {
             get { return _title; }
@@ -53,9 +64,9 @@ namespace ReadApp
                 _selectedRead = value;
 
                 if (value == null)
-                    Title = WELCOME;
+                    Title = Welcome;
                 else
-                    Title = $"{WELCOME} : {_selectedRead.Name}";
+                    Title = $"{Welcome} : {_selectedRead.Name}";
                 PropertyChanged?.Invoke(this,
                    new PropertyChangedEventArgs(nameof(SelectedRead)));
             }

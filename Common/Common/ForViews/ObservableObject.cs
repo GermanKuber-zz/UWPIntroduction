@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace ReadApp
+namespace Common.ForViews
 {
     public class ObservableObject
     {

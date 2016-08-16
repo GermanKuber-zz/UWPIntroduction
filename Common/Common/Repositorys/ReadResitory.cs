@@ -5,9 +5,10 @@ using System.Net.Http;
 using System.Runtime.Serialization.Json;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Common.Models;
 using Newtonsoft.Json;
 
-namespace ReadApp
+namespace Common.Repositorys
 {
     public static class ReadResitory
     {

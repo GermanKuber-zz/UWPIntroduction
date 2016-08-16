@@ -1,10 +1,12 @@
 ﻿<Page
-    x:Class="ReadApp.MainPage"
+    x:Class="ReadApp.Views.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ReadApp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:common="using:Common"
+    xmlns:viewModels="using:Common.ViewModels"
     mc:Ignorable="d" RequestedTheme="{Binding Configurations.Theme, Mode=TwoWay}">
 
     <Page.Resources>
@@ -50,7 +52,7 @@
         </DataTemplate>
     </Page.Resources>
     <Page.DataContext>
-        <local:MainPageDataViewModel />
+        <viewModels:MainPageDataViewModel />
     </Page.DataContext>
     <Page.BottomAppBar>
         <CommandBar>

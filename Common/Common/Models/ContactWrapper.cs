@@ -3,7 +3,7 @@ using Windows.ApplicationModel.Contacts;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace ReadApp
+namespace Common.Models
 {
   public  class ContactWrapper
     {

@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Input;
 
-namespace ReadApp
+namespace Common.ForViews
 {
     public class CommandHandler : ICommand
     {

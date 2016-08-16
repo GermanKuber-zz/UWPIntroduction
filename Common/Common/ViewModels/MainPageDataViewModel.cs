@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Appointments;
+using Common.Admins;
+using Common.ForViews;
+using Common.Models;
+using Common.Repositorys;
 
-namespace ReadApp
+namespace Common.ViewModels
 {
     public class MainPageDataViewModel : INotifyPropertyChanged
     {

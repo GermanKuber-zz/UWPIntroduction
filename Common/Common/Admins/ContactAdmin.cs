@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Contacts;
+using Common.Models;
 
-namespace ReadApp
+namespace Common.Admins
 {
     public  class ContactAdmin
     {

@@ -1,7 +1,9 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Common.Models;
+using Common.ViewModels;
 
-namespace ReadApp
+namespace ReadApp.Views
 {
     public sealed partial class MainPage : Page
     {

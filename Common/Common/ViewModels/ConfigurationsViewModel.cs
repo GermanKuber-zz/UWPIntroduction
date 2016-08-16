@@ -3,8 +3,9 @@ using System.ComponentModel;
 using System.Globalization;
 using Windows.Storage;
 using Windows.UI.Xaml;
+using Common.ForViews;
 
-namespace ReadApp
+namespace Common.ViewModels
 {
     public class ConfigurationsViewModel : ObservableObject
     {

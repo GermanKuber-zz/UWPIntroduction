@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 
-namespace ReadApp
+namespace Common.Models
 {
     public class NoticeModel
     {

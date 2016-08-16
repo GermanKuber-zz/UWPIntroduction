@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Contacts;
 using Windows.ApplicationModel.Email;
 
-namespace ReadApp
+namespace Common.Admins
 {
     public class EmailAdmin
     {

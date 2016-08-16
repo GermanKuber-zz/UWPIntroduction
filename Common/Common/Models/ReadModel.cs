@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ReadApp
+namespace Common.Models
 {
 
     public class ReadModel

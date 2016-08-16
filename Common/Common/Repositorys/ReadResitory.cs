@@ -23,6 +23,9 @@ namespace Common.Repositorys
                 return _readCache;
             //Busco los datos en la nube
             var client = new HttpClient();
+            //Ver State de Loading
+            //await Task.Delay(3000);
+            //throw new Exception("Test");
             var stream = await client.GetStreamAsync(
                   "http://beta.json-generator.com/api/json/get/VkuVFeVY-");
 

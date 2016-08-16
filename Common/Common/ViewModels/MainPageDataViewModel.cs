@@ -18,6 +18,8 @@ namespace Common.ViewModels
     {
 
 
+
+
         #region Public Properties
 
         public ObservableCollection<ReadModel> ReadModels { get; set; }
@@ -79,7 +81,19 @@ namespace Common.ViewModels
                     new PropertyChangedEventArgs(nameof(Filter)));
             }
         }
+        public LoadingStates LoadingState
+        {
+            get { return _loadingState; }
+            set
+            {
+                if (value == _loadingState)
+                    return;
 
+                _loadingState = value;
+                PropertyChanged?.Invoke(this,
+                    new PropertyChangedEventArgs(nameof(LoadingState)));
+            }
+        }
         #endregion
 
 
@@ -116,6 +130,8 @@ namespace Common.ViewModels
         private string _filter;
 
         private ICommand _addNoticeToCommand;
+
+        private LoadingStates _loadingState = LoadingStates.Loading;
         #endregion
 
 
@@ -132,6 +148,8 @@ namespace Common.ViewModels
 
             this.Title = Welcome;
             this.Configurations = new ConfigurationsViewModel();
+            this.LoadingState = LoadingStates.Loading;
+            
         }
 
         private void GenerateDummyData()
@@ -264,11 +282,21 @@ namespace Common.ViewModels
         }
         private async void LoadData()
         {
-            _readModels = await ReadResitory.GetReadsAsync();
-            FilterText();
-            var random = new Random();
+            try
+            {
+                _readModels = await ReadResitory.GetReadsAsync();
+                FilterText();
+                LoadingState = LoadingStates.Loaded;
+                var random = new Random();
 
-            SelectedRead = ReadModels?.ElementAt(random.Next(0, ReadModels.Count -1));
+                SelectedRead = ReadModels?.ElementAt(random.Next(0, ReadModels.Count - 1));
+            }
+            catch (Exception)
+            {
+                LoadingState = LoadingStates.Error;
+            }
+           
+       
         }
 
         private void FilterText()
@@ -314,5 +342,12 @@ namespace Common.ViewModels
 
 
 
+    }
+
+    public enum LoadingStates
+    {
+        Loading,
+        Loaded,
+        Error
     }
 }

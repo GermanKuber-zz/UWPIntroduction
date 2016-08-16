@@ -5,6 +5,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using BackgroundServices;
 
 namespace ReadApp
 {
@@ -30,6 +31,7 @@ namespace ReadApp
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            ReadAppBackgroundTask.Register();
 #if DEBUG
             if (Debugger.IsAttached)
             {

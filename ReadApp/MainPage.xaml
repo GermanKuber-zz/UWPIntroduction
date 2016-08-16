@@ -7,7 +7,40 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <DataTemplate x:Key="RememberModelTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock  HorizontalAlignment="Left" VerticalAlignment="Top" Width="40"/>
+                <TextBlock  HorizontalAlignment="Left" VerticalAlignment="Top" Width="40"/>
+                <ItemsControl />
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+
+
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="320"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <ListView x:Name="listView" ItemTemplate="{StaticResource RememberModelTemplate}"  Grid.Row="1" />
+            <TextBox x:Name="textBox" Margin="10,10,10,8" TextWrapping="Wrap"  d:LayoutOverrides="Height" PlaceholderText="Search for names"/>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" 
+             VerticalAlignment="Top"/>
+            <Ellipse Fill="#FFF4F4F5" Grid.Row="1" Stroke="Black"/>
+        </Grid>
 
     </Grid>
 </Page>

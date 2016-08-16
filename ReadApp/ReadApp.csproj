@@ -91,6 +91,7 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="Data.json" />
     <None Include="project.json" />
+    <None Include="Readme.md" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Views\About.xaml.cs">

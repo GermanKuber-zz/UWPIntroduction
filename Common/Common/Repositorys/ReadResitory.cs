@@ -41,8 +41,8 @@ namespace Common.Repositorys
                 _readCache = await GetReadsAsync();
 
             var now = DateTime.Now;
-       
-            var selectedChildren = _readCache.SelectMany(x => x.Notices).Where(s=> s.DateParse.Day == now.Day).ToList();
+
+            var selectedChildren = _readCache.SelectMany(x => x.Notices).Where(s => s.DateParse.Day == now.Day).ToList();
 
             return selectedChildren;
             // return await ReadFromFile();

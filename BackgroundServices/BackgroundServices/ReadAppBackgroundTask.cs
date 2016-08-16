@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
+using Common.Models;
 using Common.Repositorys;
 using Common.ViewModels;
 
@@ -21,7 +22,8 @@ namespace BackgroundServices
             if (settings.NotificationsEnabled)
                 await SendNotificationAsync();
 
- 
+            if (settings.LiveTileEnabled)
+                await UpdateTilesAsync();
 
             _deferral.Complete();
         }
@@ -69,6 +71,40 @@ namespace BackgroundServices
             builder.SetTrigger(new TimeTrigger(120, false));
 
             builder.Register();
+        }
+        private async static Task UpdateTilesAsync()
+        {
+            var noticeInDay = await GetRandomNotice();
+            if (noticeInDay == null)
+                return;
+
+            var template =
+                    GenerateTemplate();                                                          
+
+            var content = string.Format(template, noticeInDay.Title, noticeInDay.Date, noticeInDay.Image);
+            var doc = new XmlDocument();
+            doc.LoadXml(content);
+
+            TileUpdateManager.CreateTileUpdaterForApplication().
+                Update(new TileNotification(doc));
+
+        }
+
+        private static string GenerateTemplate()
+        {
+            return TemplateContent.Simple;
+            //return TemplateContent.WithImage;
+        }
+
+        //Muestro una noticia random
+        private static async Task<NoticeModel> GetRandomNotice()
+        {
+            var noticeInDay = await ReadResitory.GetNoticesInDay();
+            var random = new Random();
+            var number = random.Next(0, noticeInDay.Count - 1);
+
+            return noticeInDay[number];
+
         }
     }
 }

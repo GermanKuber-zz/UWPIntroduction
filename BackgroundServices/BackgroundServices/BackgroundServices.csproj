@@ -110,6 +110,7 @@
   <ItemGroup>
     <Compile Include="ReadAppBackgroundTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TemplateContent.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">

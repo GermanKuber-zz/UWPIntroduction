@@ -15,7 +15,7 @@ namespace ReadApp
             var notice = ((FrameworkElement)sender).DataContext as NoticeModel;
 
             if (notice != null)
-                await((MainPageData)this.DataContext).SendEmailAsync(notice);
+                await((MainPageDataViewModel)this.DataContext).SendEmailAsync(notice);
         }
     }
 }

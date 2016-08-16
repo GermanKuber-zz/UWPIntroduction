@@ -4,11 +4,13 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.Appointments;
 
 namespace ReadApp
 {
-    public class MainPageData : INotifyPropertyChanged
+    public class MainPageDataViewModel : INotifyPropertyChanged
     {
 
 
@@ -67,8 +69,22 @@ namespace ReadApp
 
 
         #region Commands
-
-
+        
+        public ICommand AddNoticeToCommand
+        {
+            get
+            {
+                if (_addNoticeToCommand == null)
+                {
+                    _addNoticeToCommand = new CommandHandler(((obj) =>
+                    {
+                        this.AddNoticeToCalendarAsync((NoticeModel)obj);
+                    }));
+                }
+                return _addNoticeToCommand;
+            }
+            set { _addNoticeToCommand = value; }
+        }
 
         #endregion
 
@@ -83,31 +99,28 @@ namespace ReadApp
         private ReadModel _selectedRead;
 
         private string _filter;
-        
-       
+
+        private ICommand _addNoticeToCommand;
         #endregion
 
 
         #region Constructor
 
-        public MainPageData()
+        public MainPageDataViewModel()
         {
             ReadModels = new ObservableCollection<ReadModel>();
+            //Genero data
             if (DesignMode.DesignModeEnabled)
-            {
-
                 GenerateDummyData();
-            }
             else
-            {
                 LoadData();
-            }
+
             this.Title = Welcome;
         }
 
         private void GenerateDummyData()
         {
-//Solo se carga en el modo diseño
+            //Solo se carga en el modo diseño
             for (int i = 0; i < 150; i++)
             {
                 var readModel = new ReadModel
@@ -143,7 +156,7 @@ namespace ReadApp
                             },
                             Text =
                                 "Ex cupidatat culpa consequat enim laborum in deserunt anim occaecat. Deserunt eiusmod quis occaecat id deserunt est voluptate do fugiat adipisicing. Ut laboris in magna adipisicing amet non nulla in. Duis irure qui mollit ea et amet esse tempor dolor reprehenderit do.",
-                            Title = $"Titulo numero  : {i}", 
+                            Title = $"Titulo numero  : {i}",
                             Image = "http://placehold.it/400x400"
                         },
                         new NoticeModel
@@ -177,7 +190,7 @@ namespace ReadApp
                     }
                 };
 
-              
+
                 ReadModels.Add(readModel);
             }
             if (ReadModels != null && ReadModels.Count > 0)
@@ -196,9 +209,22 @@ namespace ReadApp
             ContactAdmin contactAdmin = new ContactAdmin();
             var contact = await contactAdmin.GetAllContacts();
             if (notice.Title != null)
-                await emailAdmin.SendEmailAsync(contact.First(x => x.Contact.Emails?.Count > 0).Contact, notice.Title,notice.Text);
+                await emailAdmin.SendEmailAsync(contact.First(x => x.Contact.Emails?.Count > 0).Contact, notice.Title, notice.Text);
         }
 
+        public async void AddNoticeToCalendarAsync(NoticeModel notice)
+        {
+            var appointment = new Appointment();
+            appointment.Subject = "Evento : " + notice.Title;
+            appointment.AllDay = true;
+            appointment.BusyStatus = AppointmentBusyStatus.Free;
+            var dateThisYear = new DateTime(
+                DateTime.Now.Year, notice.DateParse.Month, notice.DateParse.Day);
+            appointment.StartTime =
+                dateThisYear < DateTime.Now ? dateThisYear.AddYears(1) : dateThisYear;
+
+            await AppointmentManager.ShowEditNewAppointmentAsync(appointment);
+        }
         #endregion
 
 
@@ -253,7 +279,7 @@ namespace ReadApp
 
         private async void UpdateContacts()
         {
-            
+
         }
 
         #endregion

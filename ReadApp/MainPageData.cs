@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 
 namespace ReadApp
@@ -27,7 +28,7 @@ namespace ReadApp
             }
         }
 
-
+        public ObservableCollection<ContactWrapper> Contacts = new ObservableCollection<ContactWrapper>();
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -44,6 +45,7 @@ namespace ReadApp
                     Title = $"Usuario Seleccionado : {_selectedRead.Name}";
                 PropertyChanged?.Invoke(this,
                    new PropertyChangedEventArgs(nameof(SelectedRead)));
+                UpdateContacts();
             }
         }
         public string Filter
@@ -81,6 +83,8 @@ namespace ReadApp
         private ReadModel _selectedRead;
 
         private string _filter;
+        
+       
         #endregion
 
 
@@ -112,9 +116,9 @@ namespace ReadApp
                     Picture = "http://placehold.it/400x400",
                     Name = $"Nombre : {i}",
                     Last = $"Apellido : {i}",
-                    Notices = new List<Notice>
+                    Notices = new List<NoticeModel>
                     {
-                        new Notice
+                        new NoticeModel
                         {
                             Date = RandomDay().ToString(),
                             Id = i,
@@ -128,7 +132,7 @@ namespace ReadApp
                             Title = $"Titulo numero  : {i}",
                             Image = "http://placehold.it/400x400"
                         },
-                        new Notice
+                        new NoticeModel
                         {
                             Date = RandomDay().ToString(),
                             Id = i,
@@ -142,7 +146,7 @@ namespace ReadApp
                             Title = $"Titulo numero  : {i}", 
                             Image = "http://placehold.it/400x400"
                         },
-                        new Notice
+                        new NoticeModel
                         {
                             Date = RandomDay().ToString(),
                             Id = i,
@@ -156,7 +160,7 @@ namespace ReadApp
                             Title = $"Titulo numero  : {i}",
                             Image = "http://placehold.it/400x400"
                         },
-                        new Notice
+                        new NoticeModel
                         {
                             Date = RandomDay().ToString(),
                             Id = i,
@@ -186,7 +190,14 @@ namespace ReadApp
 
         #region Public Methods
 
-
+        public async Task SendEmailAsync(NoticeModel notice)
+        {
+            EmailAdmin emailAdmin = new EmailAdmin();
+            ContactAdmin contactAdmin = new ContactAdmin();
+            var contact = await contactAdmin.GetAllContacts();
+            if (notice.Title != null)
+                await emailAdmin.SendEmailAsync(contact.First(x => x.Contact.Emails?.Count > 0).Contact, notice.Title,notice.Text);
+        }
 
         #endregion
 
@@ -239,6 +250,12 @@ namespace ReadApp
                     ReadModels.Insert(i, resultItem);
             }
         }
+
+        private async void UpdateContacts()
+        {
+            
+        }
+
         #endregion
 
 

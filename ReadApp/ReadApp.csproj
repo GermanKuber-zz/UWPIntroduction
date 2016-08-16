@@ -94,6 +94,7 @@
     <None Include="Readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behavior\AutoScrollBehavior.cs" />
     <Compile Include="Views\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>

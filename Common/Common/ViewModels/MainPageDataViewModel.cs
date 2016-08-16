@@ -41,7 +41,6 @@ namespace Common.ViewModels
             set
             {
                 _selectedRead = value;
-
                 if (value == null)
                     Title = Welcome;
                 else
@@ -267,7 +266,9 @@ namespace Common.ViewModels
         {
             _readModels = await ReadResitory.GetReadsAsync();
             FilterText();
+            var random = new Random();
 
+            SelectedRead = ReadModels?.ElementAt(random.Next(0, ReadModels.Count -1));
         }
 
         private void FilterText()

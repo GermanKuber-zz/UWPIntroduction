@@ -22,6 +22,14 @@ namespace Common.ViewModels
 
 
         #region Public Properties
+        private Visibility _visibleButton;
+
+        public Visibility VisibleButton
+        {
+            get { return _visibleButton; }
+            set { _visibleButton = value; }
+        }
+
         public Visibility VisibleMenu
         {
             get { return _visibleMenu; }
@@ -63,7 +71,8 @@ namespace Common.ViewModels
                 PropertyChanged?.Invoke(this,
                    new PropertyChangedEventArgs(nameof(SelectedRead)));
                 UpdateContacts();
-                if (VisibleMenu == Visibility.Visible)
+
+                if ( VisibleMenu == Visibility.Visible &&  VisibleMenu == Visibility.Visible)
                     this.OpenMenu = false;
             }
         }
@@ -172,7 +181,7 @@ namespace Common.ViewModels
         private ICommand _addNoticeToCommand;
 
         private LoadingStates _loadingState = LoadingStates.Loading;
-        private bool _openMenu;
+        private bool _openMenu = true;
         private ICommand _switchMenuCommand;
         private Visibility _visibleMenu;
 
@@ -193,7 +202,7 @@ namespace Common.ViewModels
             this.Title = Welcome;
             this.Configurations = new ConfigurationsViewModel();
             this.LoadingState = LoadingStates.Loading;
-            
+            this.OpenMenu = true;
         }
 
         private void GenerateDummyData()
